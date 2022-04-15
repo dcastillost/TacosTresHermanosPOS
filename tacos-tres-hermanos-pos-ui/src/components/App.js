@@ -1,6 +1,7 @@
 import React from 'react';
 import t3h from '../api/t3h';
 import SearchBar from './SearchBar';
+import MenuList from './MenuList';
 
 class App extends React.Component {
   state = {images: [] };
@@ -21,6 +22,7 @@ class App extends React.Component {
       <div className='ui container' style={{marginTop: '10px'}}>
         <SearchBar onSubmit={this.onSearchSubmit} />
         Found: {this.state.images.length} images
+        <MenuList images={this.state.images}/>
       </div>
     );
   }
