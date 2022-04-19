@@ -1,13 +1,23 @@
 import React from 'react';
+import MenuItem from './MenuItem';
+import './MenuList.css';
 
+
+//Refactor to have only one item on props and do the destructuring directly on MenuItem
 const MenuList = (props) => {
-  const images = props.images.map(({description, id, urls}) => {
+  console.log(props.images);
+  const images = props.images.map(({ description, alt_description, id, urls, color, height }) => {
     return (
-      <img 
-        alt= {description}
-        key={id} 
-        src={urls.regular}  
-      />
+      <div className='menu-list'>
+        <MenuItem
+          key={id}
+          menuItemName={color}
+          menuItemDescription={description}
+          menuItemPrice={height}
+          menuItemImageURL={urls.regular}
+          menuItemImageDescription={alt_description}
+        />
+      </div>
     );
   });
 
