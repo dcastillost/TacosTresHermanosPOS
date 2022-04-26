@@ -7,20 +7,28 @@ Takes the item information as props including the item's name, description and i
 */
 
 //Refactor: Use grid system for layout
-class MenuItem extends React.Component {
+const MenuItem = (props) => {
   // const {description, alt_description, id, urls, color, height} = this.props.menuItemInfo;
-  render() {
-    return(
-      <div>
-        <h1>{this.props.menuItemName}</h1>
-        <body>
-          <div>{this.props.menuItemDescription}</div>
-          <div><b>{this.props.menuItemPrice}</b></div>
-          <img src={this.props.menuItemImageURL} alt={this.props.menuItemImageDescription}/>
-        </body>
+  return (
+    <div className='menu-list item'>
+      <div className='content'>
+        <div className='header'>{props.menuItemName}</div>
+        <span>
+          <div>{props.menuItemDescription}</div>
+          <div><b>{props.menuItemPrice}</b></div>
+          <img src={props.menuItemImageURL} alt={props.menuItemImageDescription} />
+        </span>
       </div>
-    );
-  }
-}
+      <div className='right floated content'>
+        <a 
+          className='ui button'
+          href={`https://www.tacos3hermanos.com/menu/${props.menuItemSlug}`}
+        >
+          Go
+        </a>
+      </div>
+    </div>
+  );
+};
 
 export default MenuItem;

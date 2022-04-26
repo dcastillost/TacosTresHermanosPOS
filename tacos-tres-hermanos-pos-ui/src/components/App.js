@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import MenuList from './MenuList';
 
 class App extends React.Component {
-  state = {images: [] };
+  state = { menuItems: [] };
 
   onSearchSubmit = async (term) => {
     const response = await t3h.get('/search/photos', {
@@ -13,16 +13,34 @@ class App extends React.Component {
         Authorization: 'Client-ID jmNqMcKBP2AcMPEyE9GWodZg9Zqf7qZLEDKbSyvfhCo'
       }
     });
-    
-    this.setState({images: response.data.results});
+
+    this.setState({ menuItems: response.data.results });
+    console.log(this.state.menuItems);
   };
+
+  componentDidMount() {
+    this.onSearchSubmit('cars');
+  }
+
+  showMenu() {
+    if (window.location.pathname === '/' || window.location.pathname === '/menu') {
+      return <MenuList menuItems={this.state.menuItems} />
+    }
+  }
+
+  showGoodsMenu() {
+    if (window.location.pathname === '/goods') {
+      return <MenuList menuItems={this.state.menuItems} />
+    }
+  }
 
   render() {
     return (
-      <div className='ui container' style={{marginTop: '10px'}}>
+      <div className='ui container' style={{ marginTop: '10px' }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        Found: {this.state.images.length} images
-        <MenuList images={this.state.images}/>
+        Found: {this.state.menuItems.length} menuItems
+        {this.showMenu()}
+        {/* <MenuList menuItems={this.state.menuItems} /> */}
       </div>
     );
   }
