@@ -1,8 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
 import t3h from '../api/t3h';
 import SearchBar from './SearchBar';
 import MenuList from './MenuList';
-import Route from './Route';
 import Header from './Header';
 
 class App extends React.Component {
@@ -26,17 +27,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='ui container' style={{ marginTop: '10px' }}>
-        <Header />
-        <SearchBar onSubmit={this.onSearchSubmit} />
-        <Route path='/food' request={this.onSearchSubmit}>
-          <MenuList menuItems={this.state.menuItems} />
-        </Route>
-        <Route path='/goods' request={this.onSearchSubmit}>
-          <MenuList menuItems={this.state.menuItems} />
-        </Route>
-
-        {/* <MenuList menuItems={this.state.menuItems} /> */}
+      <div className='ui container'>
+        <BrowserRouter>
+          <div>
+            <Header />
+            <SearchBar onSubmit={this.onSearchSubmit} />
+            {/* <Route path='/' exact component={MenuList} /> */}
+            {/* <Route path='/goods' component={MenuList} /> */}
+            {/* <MenuList menuItems={this.state.menuItems} /> */}
+            {/* how to pass props to MenuList?? */}
+          </div>
+        </BrowserRouter>
       </div>
     );
   }
