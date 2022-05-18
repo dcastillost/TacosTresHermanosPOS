@@ -1,14 +1,15 @@
 {
   "name": "tacos-tres-hermanos-pos-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "RESTful API server for T3H POS client",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "dev": "nodemon src/index.js",
+    "start": "nodemon src/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["RESTful", "API", "server"],
+  "author": "David Castillo",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
