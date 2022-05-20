@@ -1,12 +1,12 @@
 const menuItemService = require('../services/menuItemService');
 
-const getAllMenuItems = (req, res) => {
-  const allMenuItems = menuItemService.getAllMenuItems();
-  res.send('Get all menu items');
+const getAllMenuItems = async (req, res) => {
+  const allMenuItems = await menuItemService.getAllMenuItems();
+  res.send({ status: "OK", data: allMenuItems });
 };
 
-const getOneMenuItem = (req, res) => {
-  const menuItem = menuItemService.getOneMenuItem();
+const getOneMenuItem = async (req, res) => {
+  const menuItem = await menuItemService.getOneMenuItem();
   res.send('Get an existing menu item');
 };
 

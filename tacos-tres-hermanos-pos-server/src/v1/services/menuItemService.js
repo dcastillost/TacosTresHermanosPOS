@@ -1,5 +1,9 @@
-const getAllMenuItems = () => {
-  return;
+const MenuItem = require('../../database/menuItem');
+
+
+const getAllMenuItems = async () => {
+  const allMenuItems = await MenuItem.getAllMenuItems();
+  return allMenuItems;
 };
 
 const getOneMenuItem = () => {

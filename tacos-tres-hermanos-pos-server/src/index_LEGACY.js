@@ -40,11 +40,11 @@ const database = mongoose.connection;
 
 database.on('error', (error) => {
   console.log(error);
-})
+});
 
 database.once('connected', () => {
   console.log('Database Connected');
-})
+});
 
 //Mongo Schema for menu items
 const menuItemSchema = new mongoose.Schema({
