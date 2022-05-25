@@ -5,12 +5,12 @@ const menuItemController = require('../controllers/menuItemController');
 
 router.get('/', menuItemController.getAllMenuItems);
 
-router.get('/:menuitemId', menuItemController.getOneMenuItem);
+router.get('/:menuItemName', menuItemController.getOneMenuItem);
 
 router.post('/', menuItemController.createNewMenuItem);
 
-router.patch('/:menuitemId', menuItemController.updateOneMenuItem);
+router.patch('/:menuItemName', menuItemController.updateOneMenuItem);
 
-router.delete('/:workoutId', menuItemController.deleteOneMenuItem);
+router.delete('/:menuItemName', menuItemController.deleteOneMenuItem);
 
 module.exports = router;

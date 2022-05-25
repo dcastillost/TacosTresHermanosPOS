@@ -6,8 +6,9 @@ const getAllMenuItems = async () => {
   return allMenuItems;
 };
 
-const getOneMenuItem = () => {
-  return;
+const getOneMenuItem = async (menuItemName) => {
+  const menuItem = await MenuItem.getOneMenuItem(menuItemName);
+  return menuItem;
 };
 
 const createNewMenuItem = async (newMenuItem) => {
@@ -16,17 +17,23 @@ const createNewMenuItem = async (newMenuItem) => {
     // id insertion is handled by MongoDB
     createdAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' }),
     updatedAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' })
-  }
+  };
   const createdMenuItem = await MenuItem.createNewMenuItem(menuItemToInsert);
   return createdMenuItem;
 };
 
-const updateOneMenuItem = () => {
-  return;
+const updateOneMenuItem = async (menuItemName, body) => {
+  updates = {
+    ...body,
+    updatedAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' })
+  };
+  const updatedMenuItem = await MenuItem.updateOneMenuItem(menuItemName, updates);
+  return updatedMenuItem;
 };
 
-const deleteOneMenuItem = () => {
-  return;
+const deleteOneMenuItem = async (menuItemName) => {
+  const deletedCount = await MenuItem.deleteOneMenuItem(menuItemName);
+  return deletedCount;
 };
 
 module.exports = {

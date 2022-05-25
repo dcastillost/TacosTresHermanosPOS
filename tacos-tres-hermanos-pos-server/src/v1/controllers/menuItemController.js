@@ -6,9 +6,18 @@ const getAllMenuItems = async (req, res) => {
   res.json({ status: "OK", data: allMenuItems });
 };
 
+//For now only handles queries by item name
 const getOneMenuItem = async (req, res) => {
-  const menuItem = await menuItemService.getOneMenuItem();
-  res.send('Get an existing menu item');
+  console.log(req);
+  const {
+    params: { menuItemName },
+  } = req;
+  if (!menuItemName) {
+    res.status(500).json({ message: 'No menu item name was provided' });
+    return;
+  }
+  const menuItem = await menuItemService.getOneMenuItem(menuItemName);
+  res.send({ status: "OK", data: menuItem });
 };
 
 const createNewMenuItem = async (req, res) => {
@@ -27,7 +36,7 @@ const createNewMenuItem = async (req, res) => {
     res.status(500).json({ message: 'All fields must be correctly filled.' });
     return;
   }
-  
+
   const newMenuItem = {
     name: body.name,
     price: body.price,
@@ -45,13 +54,23 @@ const createNewMenuItem = async (req, res) => {
 };
 
 const updateOneMenuItem = async (req, res) => {
-  const updatedMenuItem = await menuItemService.updateOneMenuItem();
-  res.send('Update existing menu item');
+  const {
+    body,
+    params: { menuItemName },
+  } = req;
+  console.log(body);
+  if (!menuItemName) return;
+  const updatedMenuItem = await menuItemService.updateOneMenuItem(menuItemName, body);
+  res.json({ status: "OK", data: updatedMenuItem });
 };
 
-const deleteOneMenuItem = (req, res) => {
-  menuItemService.deleteOneMenuItem();
-  res.send('Delete an existing menu item');
+const deleteOneMenuItem = async (req, res) => {
+  const {
+    params: { menuItemName },
+  } = req;
+  if (!menuItemName) return;
+  const deletedCount = await menuItemService.deleteOneMenuItem(menuItemName);
+  res.status(204).send({ status: "OK"});
 };
 
 module.exports = {

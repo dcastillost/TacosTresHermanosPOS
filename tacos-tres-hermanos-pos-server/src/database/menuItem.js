@@ -47,8 +47,10 @@ const getAllMenuItems = async () => {
   }
 };
 
-const getOneMenuItem = () => {
-  return;
+const getOneMenuItem = async (menuItemName) => {
+  const menuItem = await MenuItem.findOne({ name: menuItemName });
+  if (!menuItem) return;
+  return menuItem;
 };
 
 const createNewMenuItem = async (createdMenuItem) => {
@@ -79,12 +81,15 @@ const createNewMenuItem = async (createdMenuItem) => {
   return createdMenuItem;
 };
 
-const updateOneMenuItem = () => {
-  return;
+const updateOneMenuItem = async (menuItemName, update) => {
+  options = { new: true };
+  const updatedMenuItem = MenuItem.findOneAndUpdate({ name: menuItemName }, update, options);
+  return updatedMenuItem;
 };
 
-const deleteOneMenuItem = () => {
-  return;
+const deleteOneMenuItem = async (menuItemName) => {
+  const deletedCount = await MenuItem.deleteOne({ name: menuItemName });
+  return deletedCount;
 };
 
 module.exports = {
@@ -94,4 +99,3 @@ module.exports = {
   updateOneMenuItem,
   deleteOneMenuItem
 };
-
