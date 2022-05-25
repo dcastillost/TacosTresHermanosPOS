@@ -51,8 +51,32 @@ const getOneMenuItem = () => {
   return;
 };
 
-const createNewMenuItem = () => {
-  return;
+const createNewMenuItem = async (createdMenuItem) => {
+  const foundItem = await MenuItem.findOne({ name: createdMenuItem.name });
+  if (foundItem) {
+    return;
+  }
+  const menuItemToInsert = new MenuItem({
+    name: createdMenuItem.name,
+    price: createdMenuItem.price,
+    shortDescription: createdMenuItem.shortDescription,
+    longDescription: createdMenuItem.longDescription,
+    imageURL: createdMenuItem.imageURL,
+    units: createdMenuItem.units,
+    category: createdMenuItem.category,
+    options: createdMenuItem.options,
+    availability: createdMenuItem.availability,
+    createdAt: createdMenuItem.createdAt,
+    updatedAt: createdMenuItem.updatedAt,
+  });
+
+  menuItemToInsert.save(err => {
+    if (err) {
+      return err;
+    }
+  });
+
+  return createdMenuItem;
 };
 
 const updateOneMenuItem = () => {
