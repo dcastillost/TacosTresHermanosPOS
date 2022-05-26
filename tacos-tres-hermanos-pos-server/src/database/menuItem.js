@@ -54,9 +54,12 @@ const getOneMenuItem = async (menuItemName) => {
 };
 
 const createNewMenuItem = async (createdMenuItem) => {
-  const foundItem = await MenuItem.findOne({ name: createdMenuItem.name });
-  if (foundItem) {
-    return;
+  const isAlreadyAdded = await MenuItem.findOne({ name: createdMenuItem.name });
+  if (isAlreadyAdded) {
+    throw {
+      status: 400,
+      message: `Item with the name '${createdMenuItem.name}' already exists`,
+    };
   }
   const menuItemToInsert = new MenuItem({
     name: createdMenuItem.name,
@@ -72,13 +75,12 @@ const createNewMenuItem = async (createdMenuItem) => {
     updatedAt: createdMenuItem.updatedAt,
   });
 
-  menuItemToInsert.save(err => {
-    if (err) {
-      return err;
-    }
-  });
-
-  return createdMenuItem;
+  try {
+    await menuItemToInsert.save();
+    return createdMenuItem;
+  } catch (error) {
+    throw { status: 500, message: error?.message || error }; // ?. = optional chaining
+  }
 };
 
 const updateOneMenuItem = async (menuItemName, update) => {

@@ -18,8 +18,12 @@ const createNewMenuItem = async (newMenuItem) => {
     createdAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' }),
     updatedAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' })
   };
-  const createdMenuItem = await MenuItem.createNewMenuItem(menuItemToInsert);
-  return createdMenuItem;
+  try {
+    const createdMenuItem = await MenuItem.createNewMenuItem(menuItemToInsert);
+    return createdMenuItem;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const updateOneMenuItem = async (menuItemName, body) => {

@@ -33,7 +33,14 @@ const createNewMenuItem = async (req, res) => {
     !body.options ||
     !body.availability
   ) {
-    res.status(500).json({ message: 'All fields must be correctly filled.' });
+    res
+      .status(400)
+      .json({
+        status: 'FAILED',
+        data: {
+          error: "One of the following keys is missing or is empty: 'name', 'price', 'shortDescription', 'longDescription', 'imageURL', 'units', 'category', 'options', 'availability'"
+        }
+      });
     return;
   }
 
@@ -49,8 +56,14 @@ const createNewMenuItem = async (req, res) => {
     availability: body.availability,
   };
 
-  const createdMenuItem = await menuItemService.createNewMenuItem(newMenuItem);
-  res.status(201).json({ status: "OK", data: createdMenuItem });
+  try {
+    const createdMenuItem = await menuItemService.createNewMenuItem(newMenuItem);
+    res.status(201).json({ status: "OK", data: createdMenuItem });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .json({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 const updateOneMenuItem = async (req, res) => {
@@ -70,7 +83,7 @@ const deleteOneMenuItem = async (req, res) => {
   } = req;
   if (!menuItemName) return;
   const deletedCount = await menuItemService.deleteOneMenuItem(menuItemName);
-  res.status(204).send({ status: "OK"});
+  res.status(204).send({ status: "OK" });
 };
 
 module.exports = {
