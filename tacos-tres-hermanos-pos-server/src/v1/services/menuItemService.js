@@ -2,13 +2,21 @@ const MenuItem = require('../../database/menuItem');
 
 const getAllMenuItems = async () => {
   //Do data transformation here
-  const allMenuItems = await MenuItem.getAllMenuItems();
-  return allMenuItems;
+  try {
+    const allMenuItems = await MenuItem.getAllMenuItems();
+    return allMenuItems;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const getOneMenuItem = async (menuItemName) => {
-  const menuItem = await MenuItem.getOneMenuItem(menuItemName);
-  return menuItem;
+  try {
+    const menuItem = await MenuItem.getOneMenuItem(menuItemName);
+    return menuItem;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const createNewMenuItem = async (newMenuItem) => {
@@ -31,13 +39,21 @@ const updateOneMenuItem = async (menuItemName, body) => {
     ...body,
     updatedAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' })
   };
-  const updatedMenuItem = await MenuItem.updateOneMenuItem(menuItemName, updates);
-  return updatedMenuItem;
+  try {
+    const updatedMenuItem = await MenuItem.updateOneMenuItem(menuItemName, updates);
+    return updatedMenuItem;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const deleteOneMenuItem = async (menuItemName) => {
-  const deletedCount = await MenuItem.deleteOneMenuItem(menuItemName);
-  return deletedCount;
+  try {
+    const deletedCount = await MenuItem.deleteOneMenuItem(menuItemName);
+    return deletedCount;
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {

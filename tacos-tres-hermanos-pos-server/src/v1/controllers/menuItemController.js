@@ -2,8 +2,12 @@ const { body, validationResult } = require('express-validator');
 const menuItemService = require('../services/menuItemService');
 
 const getAllMenuItems = async (req, res) => {
-  const allMenuItems = await menuItemService.getAllMenuItems();
-  res.json({ status: "OK", data: allMenuItems });
+  try {
+    const allMenuItems = await menuItemService.getAllMenuItems();
+    res.json({ status: "OK", data: allMenuItems });
+  } catch (error) {
+    catch500Error(error, res);
+  }
 };
 
 //For now only handles queries by item name
@@ -13,11 +17,19 @@ const getOneMenuItem = async (req, res) => {
     params: { menuItemName },
   } = req;
   if (!menuItemName) {
-    res.status(500).json({ message: 'No menu item name was provided' });
-    return;
+    res
+      .status(400)
+      .send({
+        status: "FAILED",
+        data: { error: `Parameter 'menuItemName' can not be empty` }
+      });
   }
-  const menuItem = await menuItemService.getOneMenuItem(menuItemName);
-  res.send({ status: "OK", data: menuItem });
+  try {
+    const menuItem = await menuItemService.getOneMenuItem(menuItemName);
+    res.send({ status: "OK", data: menuItem });
+  } catch (error) {
+    catch500Error(error, res);
+  }
 };
 
 const createNewMenuItem = async (req, res) => {
@@ -35,8 +47,8 @@ const createNewMenuItem = async (req, res) => {
   ) {
     res
       .status(400)
-      .json({
-        status: 'FAILED',
+      .send({
+        status: "FAILED",
         data: {
           error: "One of the following keys is missing or is empty: 'name', 'price', 'shortDescription', 'longDescription', 'imageURL', 'units', 'category', 'options', 'availability'"
         }
@@ -60,9 +72,7 @@ const createNewMenuItem = async (req, res) => {
     const createdMenuItem = await menuItemService.createNewMenuItem(newMenuItem);
     res.status(201).json({ status: "OK", data: createdMenuItem });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({ status: "FAILED", data: { error: error?.message || error } });
+    catch500Error(error, res);
   }
 };
 
@@ -71,19 +81,40 @@ const updateOneMenuItem = async (req, res) => {
     body,
     params: { menuItemName },
   } = req;
-  console.log(body);
-  if (!menuItemName) return;
-  const updatedMenuItem = await menuItemService.updateOneMenuItem(menuItemName, body);
-  res.json({ status: "OK", data: updatedMenuItem });
+  if (!menuItemName) {
+    res
+      .status(400)
+      .send({ status: "FAILED", data: "Parameter 'menuItemName' can not be empty" });
+  }
+  try {
+    const updatedMenuItem = await menuItemService.updateOneMenuItem(menuItemName, body);
+    res.send({ status: "OK", data: updatedMenuItem });
+  } catch (error) {
+    catch500Error(error, res);
+  }
 };
 
 const deleteOneMenuItem = async (req, res) => {
   const {
     params: { menuItemName },
   } = req;
-  if (!menuItemName) return;
-  const deletedCount = await menuItemService.deleteOneMenuItem(menuItemName);
-  res.status(204).send({ status: "OK" });
+  if (!menuItemName) {
+    res
+      .status(400)
+      .send({ status: "FAILED", data: "Parameter 'menuItemName' can not be empty" });
+  }
+  try {
+    const deletedCount = await menuItemService.deleteOneMenuItem(menuItemName);
+    res.status(204).send({ status: "OK" });
+  } catch (error) {
+    catch500Error(error, res);
+  }
+};
+
+const catch500Error = (error, res) => {
+  res
+    .status(error?.status || 500)
+    .send({ status: "FAILED", data: { error: error?.message || error } });
 };
 
 module.exports = {

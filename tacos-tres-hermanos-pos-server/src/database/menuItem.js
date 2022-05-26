@@ -34,23 +34,31 @@ const menuItemSchema = new mongoose.Schema({
 const MenuItem = mongoose.model('MenuItem', menuItemSchema);
 
 const getAllMenuItems = async () => {
-  let allMenuItems = null;
-  let error = null;
   try {
-    allMenuItems = await MenuItem.find({});
+    const allMenuItems = await MenuItem.find({});
+    return allMenuItems;
   }
-  catch (e) {
-    error = e;
-  }
-  finally {
-    return allMenuItems || error;
+  catch (error) {
+    throw { status: 500, message: error };
   }
 };
 
 const getOneMenuItem = async (menuItemName) => {
-  const menuItem = await MenuItem.findOne({ name: menuItemName });
-  if (!menuItem) return;
-  return menuItem;
+  try {
+    const menuItem = await MenuItem.findOne({ name: menuItemName });
+    if (!menuItem) {
+      throw {
+        status: 400,
+        message: `Can't find workout with name '${menuItemName}'`
+      };
+    }
+    return menuItem;
+  } catch (error) {
+    throw {
+      status: error?.status || 500,
+      message: error?.message || error
+    };
+  }
 };
 
 const createNewMenuItem = async (createdMenuItem) => {
@@ -84,14 +92,44 @@ const createNewMenuItem = async (createdMenuItem) => {
 };
 
 const updateOneMenuItem = async (menuItemName, update) => {
-  options = { new: true };
-  const updatedMenuItem = MenuItem.findOneAndUpdate({ name: menuItemName }, update, options);
-  return updatedMenuItem;
+  try {
+    //Add a case where the user tries to modify an item's name to the name of another existing item?
+    const nameAlreadyExists = await MenuItem.findOne({ name: update.name });
+    if (nameAlreadyExists) {
+      throw {
+        status: 400,
+        message: `Item with the name '${update.name}' already exists`,
+      };
+    }
+    const isAlreadyAdded = await MenuItem.findOne({ name: menuItemName });
+    if (!isAlreadyAdded) {
+      throw {
+        status: 400,
+        message: `Item with the name '${menuItemName}' doesn't exist`,
+      };
+    }
+    options = { new: true };
+    const updatedMenuItem = MenuItem.findOneAndUpdate({ name: menuItemName }, update, options);
+    return updatedMenuItem;
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
 };
 
 const deleteOneMenuItem = async (menuItemName) => {
-  const deletedCount = await MenuItem.deleteOne({ name: menuItemName });
-  return deletedCount;
+  try {
+    const isAlreadyAdded = await MenuItem.findOne({ name: menuItemName });
+    if (!isAlreadyAdded) {
+      throw {
+        status: 400,
+        message: `Item with the name '${menuItemName}' doesn't exist`,
+      };
+    }
+    const deletedCount = await MenuItem.deleteOne({ name: menuItemName });
+    return deletedCount;
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
 };
 
 module.exports = {
