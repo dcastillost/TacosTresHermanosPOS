@@ -16,6 +16,7 @@
   "author": "David Castillo",
   "license": "ISC",
   "dependencies": {
+    "apicache": "^1.6.3",
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.0",
     "ejs": "^3.0.2",
