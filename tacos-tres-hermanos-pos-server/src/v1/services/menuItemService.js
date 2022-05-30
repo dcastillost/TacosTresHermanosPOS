@@ -1,9 +1,9 @@
 const MenuItem = require('../../database/menuItem');
 
-const getAllMenuItems = async () => {
+const getAllMenuItems = async (filterParams) => {
   //Do data transformation here
   try {
-    const allMenuItems = await MenuItem.getAllMenuItems();
+    const allMenuItems = await MenuItem.getAllMenuItems(filterParams);
     return allMenuItems;
   } catch (error) {
     throw error;

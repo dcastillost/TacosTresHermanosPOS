@@ -33,10 +33,15 @@ const menuItemSchema = new mongoose.Schema({
 //Compile schema into a model
 const MenuItem = mongoose.model('MenuItem', menuItemSchema);
 
-const getAllMenuItems = async () => {
+const getAllMenuItems = async (filterParams) => {
   try {
-    const allMenuItems = await MenuItem.find({});
-    return allMenuItems;
+    if (filterParams.category) {
+      const allMenuItems = await MenuItem.find({ category: filterParams.category });
+      return allMenuItems;
+    } else {
+      const allMenuItems = await MenuItem.find({});
+      return allMenuItems;
+    }
   }
   catch (error) {
     throw { status: 500, message: error };

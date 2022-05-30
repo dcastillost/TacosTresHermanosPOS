@@ -2,8 +2,9 @@ const { body, validationResult } = require('express-validator');
 const menuItemService = require('../services/menuItemService');
 
 const getAllMenuItems = async (req, res) => {
+  const { category } = req.query;
   try {
-    const allMenuItems = await menuItemService.getAllMenuItems();
+    const allMenuItems = await menuItemService.getAllMenuItems({ category });
     res.json({ status: "OK", data: allMenuItems });
   } catch (error) {
     catch500Error(error, res);
