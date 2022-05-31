@@ -5,10 +5,16 @@ const menuItemController = require('../controllers/menuItemController');
 
 /**
  * @openapi
- * /api/v1/menuItems:
+ * /api/v1/menuitems:
  *   get:
  *     tags:
  *       - menuItems
+ *     parameters:
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: the category of a menu item
  *     responses:
  *       200:
  *         description: OK
@@ -24,6 +30,22 @@ const menuItemController = require('../controllers/menuItemController');
  *                   type: array 
  *                   items: 
  *                     $ref: "#/components/schemas/MenuItem"
+ *       5XX:
+ *         description: FAILED
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: 
+ *                   type: string
+ *                   example: FAILED
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     error:
+ *                       type: string 
+ *                       example: "Some error message"
  */
 
 router.get('/', menuItemController.getAllMenuItems);
