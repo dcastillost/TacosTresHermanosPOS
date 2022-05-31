@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const apicache = require('apicache');
 
 const v1MenuItemRouter = require('./v1/routes/menuItemRoutes');
+const { swaggerDocs: V1SwaggerDocs } = require('./v1/swagger.js');
 
 const app = express();
 const cache = apicache.middleware;
@@ -15,5 +16,6 @@ app.use('/api/v1/menuitems', v1MenuItemRouter);
 
 app.listen(PORT, () => {
   console.log(`API server is listening on port ${PORT}`);
+  V1SwaggerDocs(app, PORT);
 });
 

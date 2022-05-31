@@ -1,5 +1,49 @@
 const mongoose = require('mongoose');
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     MenuItem:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           example: ObjectId("628633853b3ff95fde15934c")
+ *         name: 
+ *           type: string
+ *           example: Carnitas
+ *         price:
+ *           type: number
+ *           example: 1500
+ *         shortDescription:
+ *           type: string
+ *           example: This is a short description.
+ *         longDescription:
+ *           type: string
+ *           example: This is a long item description. It's longer as you can see.
+ *         imageURL: 
+ *           type: string
+ *         units:
+ *           type: string
+ *         category:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["taco", "pork"]
+ *         options:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["5 tacos", "3 tacos"]
+ *         createdAt:
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         updatedAt: 
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ */
+
 //TO UPDATE for production, connect to local database for testing
 const mongoString = '';// process.env.DATABASE_URL;
 
