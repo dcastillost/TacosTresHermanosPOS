@@ -13,7 +13,6 @@ const getAllMenuItems = async (req, res) => {
 
 //For now only handles queries by item name
 const getOneMenuItem = async (req, res) => {
-  console.log(req);
   const {
     params: { menuItemName },
   } = req;

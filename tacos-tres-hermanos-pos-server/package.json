@@ -4,7 +4,7 @@
   "description": "RESTful API server for T3H POS client",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "Mocha",
     "dev": "nodemon src/index.js",
     "start": "nodemon src/index.js"
   },
@@ -25,5 +25,11 @@
     "mongoose": "^6.3.0",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.3"
   }
 }

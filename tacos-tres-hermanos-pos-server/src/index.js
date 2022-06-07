@@ -16,8 +16,9 @@ app.use(cache("2 minutes"));
 app.use('/api/v1/menuitems', v1MenuItemRouter);
 app.use('/api/v1/orders', v1OrderRouter);
 
-app.listen(PORT, () => {
+module.exports = app.listen(PORT, () => {
   console.log(`API server is listening on port ${PORT}`);
   V1SwaggerDocs(app, PORT);
 });
 
+// module.exports = app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
