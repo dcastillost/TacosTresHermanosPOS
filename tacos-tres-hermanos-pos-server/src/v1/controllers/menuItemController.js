@@ -1,4 +1,3 @@
-const { body, validationResult } = require('express-validator');
 const menuItemService = require('../services/menuItemService');
 
 const getAllMenuItems = async (req, res) => {
