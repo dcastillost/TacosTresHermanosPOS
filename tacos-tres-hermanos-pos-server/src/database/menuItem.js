@@ -97,8 +97,8 @@ const getOneMenuItem = async (menuItemName) => {
     const menuItem = await MenuItem.findOne({ name: menuItemName });
     if (!menuItem) {
       throw {
-        status: 400,
-        message: `Can't find workout with name '${menuItemName}'`
+        status: 404,
+        message: `Can't find menu item with name '${menuItemName}'`
       };
     }
     return menuItem;
@@ -153,7 +153,7 @@ const updateOneMenuItem = async (menuItemName, update) => {
     const isAlreadyAdded = await MenuItem.findOne({ name: menuItemName });
     if (!isAlreadyAdded) {
       throw {
-        status: 400,
+        status: 404,
         message: `Item with the name '${menuItemName}' doesn't exist`,
       };
     }
@@ -170,7 +170,7 @@ const deleteOneMenuItem = async (menuItemName) => {
     const isAlreadyAdded = await MenuItem.findOne({ name: menuItemName });
     if (!isAlreadyAdded) {
       throw {
-        status: 400,
+        status: 404,
         message: `Item with the name '${menuItemName}' doesn't exist`,
       };
     }

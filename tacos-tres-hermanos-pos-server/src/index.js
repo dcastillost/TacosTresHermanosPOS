@@ -7,12 +7,12 @@ const v1OrderRouter = require('./v1/routes/orderRoutes');
 const { swaggerDocs: V1SwaggerDocs } = require('./v1/swagger.js');
 
 const app = express();
-const cache = apicache.middleware;
+// const cache = apicache.middleware;
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cache("2 minutes"));
+// app.use(cache("2 minutes"));
 app.use('/api/v1/menuitems', v1MenuItemRouter);
 app.use('/api/v1/orders', v1OrderRouter);
 
