@@ -6,13 +6,16 @@ const app = require('../src/index');
 //Assertion style
 const should = chai.should();
 
+// COSTANTS
+const API_URI = '/api/v1/menuitems';
+
 chai.use(chaiHttp);
 
 describe('MenuItem endpoints', function () {
   describe('GET all menu items', function () {
     it('should fetch all current menu items', function (done) {
       chai.request(app).keepOpen()
-        .get('/api/v1/menuitems')
+        .get(API_URI)
         .end(function (err, res) {
           should.exist(res.body.data);
           res.body.data.should.be.an('array');
@@ -26,7 +29,7 @@ describe('MenuItem endpoints', function () {
     it('should fetch menu items filtered by category=beef', function (done) {
       const category = 'beef';
       chai.request(app)
-        .get(`/api/v1/menuitems?category=${category}`)
+        .get(`${API_URI}?category=${category}`)
         .end(function (err, res) {
           should.exist(res.body.data);
           res.body.data.should.be.an('array');
@@ -40,7 +43,7 @@ describe('MenuItem endpoints', function () {
     it('should fetch one menu item', function (done) {
       const nameItem = 'Carnitas';
       chai.request(app)
-        .get(`/api/v1/menuitems/${nameItem}`)
+        .get(`${API_URI}/${nameItem}`)
         .end(function (err, res) {
           should.exist(res.body.data);
           res.body.data.should.be.an('object');
@@ -51,10 +54,10 @@ describe('MenuItem endpoints', function () {
         });
     });
 
-    it('should fait to fetch non existing item', function (done) {
+    it('should not fetch a non existing item', function (done) {
       const nameItem = 'NegaCarnitas';
       chai.request(app)
-        .get(`/api/v1/menuitems/${nameItem}`)
+        .get(`${API_URI}/${nameItem}`)
         .end(function (err, res) {
           should.exist(res.body.data);
           res.body.data.should.be.an('object');
@@ -65,7 +68,7 @@ describe('MenuItem endpoints', function () {
     });
 
     // Never going to happen?
-    // it('should fait to fetch menu item due to bad request', function (done) {
+    // it('should fail to fetch menu item due to bad request', function (done) {
     //   const nameItem = '';
     //   chai.request(app)
     //     .get(`/api/v1/menuitems/${nameItem}`)
@@ -93,7 +96,7 @@ describe('MenuItem endpoints', function () {
         availability: 'true',
       };
       chai.request(app)
-        .post('/api/v1/menuitems')
+        .post(API_URI)
         .send(newTestMenuItem)
         .end(function (err, res) {
           should.exist(res.body.data);
@@ -107,7 +110,7 @@ describe('MenuItem endpoints', function () {
         });
     });
 
-    it('should fail to create new item with missing properties', function (done) {
+    it('should not create a new item with missing properties', function (done) {
       const incompleteTestMenuItem = {
         price: 10,
         shortDescription: 'Short description',
@@ -119,7 +122,7 @@ describe('MenuItem endpoints', function () {
         availability: 'true',
       };
       chai.request(app)
-        .post('/api/v1/menuitems')
+        .post(API_URI)
         .send(incompleteTestMenuItem)
         .end(function (err, res) {
           should.exist(res.body.data);
@@ -130,6 +133,47 @@ describe('MenuItem endpoints', function () {
         });
     });
   });
+
+  describe('PATCH one menu item', function () {
+    it('should update one menu item', function (done) {
+      const menuItemToUpdate = 'testName';
+      const dataToUpdate = {
+        price: 20,
+        availability: 'false',
+      };
+      chai.request(app)
+        .patch(`${API_URI}/${menuItemToUpdate}`)
+        .send(dataToUpdate)
+        .end(function (err, res) {
+          should.exist(res.body.data);
+          res.body.data.should.be.an('object');
+          res.body.data.should.have.property('price').eq(dataToUpdate.price);
+          res.should.have.status(200);
+          done();
+        });
+    });
+
+    it("should not update one menu item's name to an existing name", function (done) {
+      const menuItemToUpdate = 'testName';
+      const dataToUpdate = {
+        name: 'Carnitas',
+        price: 20,
+        availability: 'false',
+      };
+      chai.request(app)
+        .patch(`${API_URI}/${menuItemToUpdate}`)
+        .send(dataToUpdate)
+        .end(function (err, res) {
+          should.exist(res.body.data);
+          res.body.data.should.be.an('object');
+          res.body.data.should.have.property('error');
+
+          res.should.have.status(400);
+          done();
+        });
+    });
+  });
+
 
   describe('DELETE one menu item', function () {
     it('should delete one menu item', function (done) {
@@ -142,7 +186,7 @@ describe('MenuItem endpoints', function () {
         });
     });
 
-    it('should fail to delete non existing item', function (done) {
+    it('should not delete a non existing item', function (done) {
       const menuItemToDelete = 'testName';
       chai.request(app)
         .delete(`/api/v1/menuitems/${menuItemToDelete}`)
