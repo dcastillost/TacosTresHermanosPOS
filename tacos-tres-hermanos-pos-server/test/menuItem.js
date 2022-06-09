@@ -89,7 +89,7 @@ describe('MenuItem endpoints', function () {
         price: 10,
         shortDescription: 'Short description',
         longDescription: 'Long description',
-        imageURL: 'http://imageurl',
+        imageURL: 'http://www.imageurl.com',
         units: 'test units',
         category: 'test category',
         options: '1',
@@ -127,7 +127,7 @@ describe('MenuItem endpoints', function () {
         .end(function (err, res) {
           should.exist(res.body.data);
           res.body.data.should.be.an('object');
-          res.body.data.should.have.property('error');
+          res.body.data.should.have.property('errors');
           res.should.have.status(400);
           done();
         });

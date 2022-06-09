@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const menuItemController = require('../controllers/menuItemController');
+const { menuItemValidator } = require('../validators/menuItemValidator');
 
 /**
  * @openapi
@@ -51,7 +52,7 @@ router.get('/', menuItemController.getAllMenuItems);
 
 router.get('/:menuItemName', menuItemController.getOneMenuItem);
 
-router.post('/', menuItemController.createNewMenuItem);
+router.post('/', menuItemValidator, menuItemController.createNewMenuItem);
 
 router.patch('/:menuItemName', menuItemController.updateOneMenuItem);
 
