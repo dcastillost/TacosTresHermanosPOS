@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const { mongoose } = require('./connection');
 
 /**
  * @openapi
@@ -43,21 +43,6 @@ const mongoose = require('mongoose');
  *           type: string
  *           example: 4/20/2022, 2:21:56 PM
  */
-
-//TO UPDATE for production, connect to local database for testing
-const mongoString = '';// process.env.DATABASE_URL;
-
-//Mongoose connection
-mongoose.connect(mongoString || 'mongodb://localhost:27017/Tacos3HermanosDB');
-const database = mongoose.connection;
-
-database.on('error', (error) => {
-  console.log(error);
-});
-
-database.once('connected', () => {
-  console.log('Database Connected');
-});
 
 //Mongo Schema for menu items
 const menuItemSchema = new mongoose.Schema({
