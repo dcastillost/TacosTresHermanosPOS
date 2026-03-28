@@ -18,6 +18,7 @@
   "dependencies": {
     "apicache": "^1.6.3",
     "body-parser": "^1.20.0",
+    "cors": "^2.8.6",
     "dotenv": "^16.0.0",
     "ejs": "^3.0.2",
     "express": "^4.17.3",
