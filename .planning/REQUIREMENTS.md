@@ -82,33 +82,33 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | — | Pending |
-| INFRA-02 | — | Pending |
-| INFRA-03 | — | Pending |
-| INFRA-04 | — | Pending |
-| ORD-01 | — | Pending |
-| ORD-02 | — | Pending |
-| ORD-03 | — | Pending |
-| ORD-04 | — | Pending |
-| ORD-05 | — | Pending |
-| ORD-06 | — | Pending |
-| ORD-07 | — | Pending |
-| ORD-08 | — | Pending |
-| KDS-01 | — | Pending |
-| KDS-02 | — | Pending |
-| KDS-03 | — | Pending |
-| KDS-04 | — | Pending |
-| MENU-01 | — | Pending |
-| MENU-02 | — | Pending |
-| MENU-03 | — | Pending |
-| MENU-04 | — | Pending |
-| RPT-01 | — | Pending |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Pending |
+| ORD-01 | Phase 2 | Pending |
+| ORD-02 | Phase 2 | Pending |
+| ORD-03 | Phase 2 | Pending |
+| ORD-04 | Phase 2 | Pending |
+| ORD-05 | Phase 2 | Pending |
+| ORD-06 | Phase 2 | Pending |
+| ORD-07 | Phase 2 | Pending |
+| ORD-08 | Phase 2 | Pending |
+| KDS-01 | Phase 2 | Pending |
+| KDS-02 | Phase 2 | Pending |
+| KDS-03 | Phase 2 | Pending |
+| KDS-04 | Phase 2 | Pending |
+| MENU-01 | Phase 3 | Pending |
+| MENU-02 | Phase 3 | Pending |
+| MENU-03 | Phase 3 | Pending |
+| MENU-04 | Phase 3 | Pending |
+| RPT-01 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 21 total
-- Mapped to phases: 0
-- Unmapped: 21
+- Mapped to phases: 21
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-28 after initial definition*
+*Last updated: 2026-03-28 after roadmap creation — all requirements mapped to phases*
