@@ -10,7 +10,12 @@ const options = {
       version: "1.0.0"
     },
   },
-  apis: ["./src/v1/routes/menuItemRoutes.js", "./src/database/menuItem.js"],
+  apis: [
+    "./src/v1/routes/menuItemRoutes.js",
+    "./src/v1/routes/orderRoutes.js",
+    "./src/database/menuItem.js",
+    "./src/database/order.js"
+  ],
 };
 
 //Docs in JSON format
