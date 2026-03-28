@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const apicache = require('apicache');
+const cors = require('cors');
 
 const v1MenuItemRouter = require('./v1/routes/menuItemRoutes');
 const v1OrderRouter = require('./v1/routes/orderRoutes');
@@ -10,6 +11,13 @@ const app = express();
 // const cache = apicache.middleware;
 const PORT = process.env.PORT || 3000;
 
+app.use(cors({
+  origin: [
+    'http://localhost:3001',
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cache("2 minutes"));
