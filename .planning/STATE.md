@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-28T06:13:30.146Z"
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-28T06:18:08.093Z"
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 ## Current Position
 
 Phase: 01 (foundation) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 
 ## Performance Metrics
 
@@ -47,6 +47,7 @@ Plan: 2 of 3
 
 *Updated after each plan completion*
 | Phase 01 P01 | 2min | 3 tasks | 3 files |
+| Phase 01 P02 | 2min | 4 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -60,6 +61,8 @@ Recent decisions affecting current work:
 - [Pre-Phase 1]: Define status as a validated enum (`pending`/`completed`/`cancelled`); prevents silent filter breakage in kitchen display
 - [Pre-Phase 1]: Extract MongoDB connection to `database/connection.js` before adding order model; avoids double-connect trap
 - [Phase 01]: dotenv loaded in connection.js rather than index.js — Keeps connection module self-contained; works regardless of entry point
+- [Phase 01]: Relative baseURL /api/v1 with CRA proxy for dev — no hardcoded hostname in frontend — Keeps frontend portable; proxy handles routing in dev, production config is separate
+- [Phase 01]: CORS whitelist includes localhost:3001 and localhost:3000 — kitchen tablets need LAN IP added later — Covers dev server and same-origin; LAN IP is deployment-specific concern
 
 ### Pending Todos
 
@@ -72,6 +75,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-28T06:13:11.550Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-03-28T06:17:44.566Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
