@@ -1,9 +1,6 @@
-//Tacos 3 Hermanos API
+//Tacos 3 Hermanos POS API
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://api.unsplash.com',
-  headers: {
-    Authorization: 'Client-ID jmNqMcKBP2AcMPEyE9GWodZg9Zqf7qZLEDKbSyvfhCo'
-  }
+  baseURL: '/api/v1'
 });
