@@ -9,7 +9,7 @@
 
 - [ ] **INFRA-01**: React frontend connects to Express API (replace Unsplash axios config)
 - [ ] **INFRA-02**: CORS configured to allow frontend-to-backend communication
-- [ ] **INFRA-03**: Mongoose connection refactored to single shared connection module
+- [x] **INFRA-03**: Mongoose connection refactored to single shared connection module
 - [ ] **INFRA-04**: Order data model with status enum, Date timestamps, and embedded item price snapshots
 
 ### Order Taking
@@ -84,7 +84,7 @@
 |-------------|-------|--------|
 | INFRA-01 | Phase 1 | Pending |
 | INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Pending |
 | ORD-01 | Phase 2 | Pending |
 | ORD-02 | Phase 2 | Pending |
